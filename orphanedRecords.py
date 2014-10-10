@@ -3,31 +3,44 @@
 #Carleton Archives
 
 #content data set
-file = open("tblCollections_Content.txt")
+import csv
+file = open("content.csv")
 
 contentFields = []
 for line in file:
     fields = line.split(',')
-    contentFields.append(fields)
+    print fields
+    contentFields.append(fields[1])
+
+#print contentFields[0][1]
 
 #digital records data set
-file = open("tblDigitalLibrary_DigitalContent.txt")       
+file = open("digitalContent.csv")       
 
 digitalFields = []
 for line in file:
     fields = line.split(',')
-    digitalFields.append(fields);
+    digitalFields.append(fields[3]);
 file.close()
+
+# print len(digitalFields)
+# print len(contentFields)
+
+print contentFields[0][0]
+
 
 correctList = []
 for i in range(len(digitalFields)):
     for j in range(len(contentFields)):
-        if digitalFields[i][0] == contentFields[j][0]:
+        if digitalFields[i]== contentFields[j]:
             correctList.append(digitalFields[i])
-            break
 
-print correctList
+# #print correctList
 
+# incorrectList = []
 # for i in range(len(digitalFields)):
-#     for j in range(len(correctList)):
+#     if digitalFields[i] not in correctList:
+#         incorrectList.append(digitalFields[i])
+
+# #print incorrectList
 
