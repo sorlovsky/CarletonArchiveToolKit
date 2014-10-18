@@ -18,27 +18,28 @@ with open('content.csv', 'rb') as f:
     		content.append(row)
 
 #getting correct answers
-correct = [];
+wrong = digitalContent[:];
 for i in range(len(digitalContent)):
 	for j in range(len(content)):
 		if (digitalContent[i][4]== content[j][0]):
-			correct.append(digitalContent[i])
+			correct= digitalContent[i]
+			wrong.remove(correct)
 			break
+			
 
 print "Number of digital records", len(digitalContent)
-print "Number of matching collection IDs", len(correct)
 
 #figuring out orphaned
-wrong = []
-for i in range(len(digitalContent)):
-	isSame = False
-	for j in range(len(correct)):
-		if (digitalContent[i][3]== correct[j][3]):
-			isSame = True
-	if isSame == False:
-		wrong.append(digitalContent[i])
+# wrong = []
+# for i in range(len(digitalContent)):
+# 	isSame = False
+# 	for j in range(len(correct)):
+# 		if (digitalContent[i][3]== correct[j][3]):
+# 			isSame = True
+# 	if isSame == False:
+# 		wrong.append(digitalContent[i])
 
-print "Number of incorrect content 'ID' to digitalContent 'Collection Content ID'", len(wrong)
+print "Number of orphaned records", len(wrong)
 
 # wrongCollectionIDonly = []
 # for i in range(len(wrong)):
@@ -49,9 +50,17 @@ print "Number of incorrect content 'ID' to digitalContent 'Collection Content ID
 
 # print "Number of matching collection IDs but incorrect collection content id to ID", len(wrongCollectionIDonly)
 
+
+
+orphaned = []
+
+for i in range(len(wrong)):
+	print wrong[i][3], wrong[i][4]
+	if wrong[i][3]!= '0':
+		orphaned.append(wrong[i])
+print "Number of orphaned is ",len(orphaned)
+
+
 with open('orphaned.csv', 'wb') as f:
     writer = csv.writer(f)
-    writer.writerows(wrong)
-
-
-        
+    writer.writerows(orphaned)
